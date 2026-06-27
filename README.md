@@ -4,6 +4,10 @@ A production-ready, full-stack Google Calendar clone built with modern web techn
 
 ![Tech Stack](https://img.shields.io/badge/React-18-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue) ![Express](https://img.shields.io/badge/Express-4.21-green) ![Prisma](https://img.shields.io/badge/Prisma-5.22-purple) ![FullCalendar](https://img.shields.io/badge/FullCalendar-6.1-orange)
 
+## Live Demo
+
+🚀 **[View Live Application](https://google-calendar-clone-eight-chi.vercel.app/)**
+
 ---
 
 ## Table of Contents

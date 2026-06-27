@@ -16,6 +16,8 @@ import { SettingsModal } from '../Modals/SettingsModal';
 import { AppearanceModal } from '../Modals/AppearanceModal';
 import { PrintModal } from '../Modals/PrintModal';
 import { TrashModal } from '../Modals/TrashModal';
+import { SmartAddModal } from '../Modals/SmartAddModal';
+import { Sparkles } from 'lucide-react';
 
 const VIEW_LABELS: Record<CalendarView, string> = {
   timeGridDay: 'Day',
@@ -40,6 +42,7 @@ const Navbar: React.FC = () => {
   const [isAppearanceOpen, setIsAppearanceOpen] = React.useState(false);
   const [isPrintOpen, setIsPrintOpen] = React.useState(false);
   const [isTrashOpen, setIsTrashOpen] = React.useState(false);
+  const [isSmartAddOpen, setIsSmartAddOpen] = React.useState(false);
   const [settingsMenuOpen, setSettingsMenuOpen] = React.useState(false);
   const viewMenuRef = React.useRef<HTMLDivElement>(null);
   const userMenuRef = React.useRef<HTMLDivElement>(null);
@@ -151,6 +154,15 @@ const Navbar: React.FC = () => {
 
       {/* Right section */}
       <div className="flex items-center gap-1 ml-auto">
+        <button 
+          className="btn-icon hidden sm:flex text-indigo-500 hover:bg-indigo-50" 
+          aria-label="Smart Add"
+          onClick={() => setIsSmartAddOpen(true)}
+          title="Smart Add (Natural Language)"
+        >
+          <Sparkles size={20} />
+        </button>
+
         <button 
           className="btn-icon hidden sm:flex" 
           aria-label="Search"
@@ -275,6 +287,10 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
+      <SmartAddModal
+        isOpen={isSmartAddOpen}
+        onClose={() => setIsSmartAddOpen(false)}
+      />
       <SearchModal 
         isOpen={isSearchOpen} 
         onClose={() => setIsSearchOpen(false)} 

@@ -8,6 +8,14 @@ A production-ready, full-stack Google Calendar clone built with modern web techn
 
 🚀 **[View Live Application](https://google-calendar-clone-eight-chi.vercel.app/)**
 
+### How to Use the Live Demo
+If you are visiting the live link for the first time, follow these steps to test the application:
+1. **Create an Account**: Click on the **"Sign up"** link on the login page. Enter any email and password (it can be fake, e.g., `test@test.com`) to create a new account.
+2. **Log In**: Use the account you just created to log in.
+3. **Add Events**: Click on the "Create" button in the sidebar or simply click/drag anywhere on the calendar grid to create an event.
+4. **Try Smart Add 🪄**: Click the sparkles icon (🪄) in the top right navbar. Type a natural language sentence like *"Meeting tomorrow at 3pm for 2 hours"* and hit Enter to watch the magic!
+5. **Drag & Drop**: Click and drag any event to move it to a different day or time, or drag its edges to resize it!
+
 ---
 
 ## Table of Contents

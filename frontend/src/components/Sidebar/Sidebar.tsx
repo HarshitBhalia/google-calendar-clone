@@ -12,7 +12,7 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ onCreateEvent, onCreateTask, onCreateAppointment }) => {
-  const { sidebarOpen, calendarVisibility, toggleCalendarVisibility } = useCalendarStore();
+  const { sidebarOpen, calendarVisibility, toggleCalendarVisibility, toggleSidebar } = useCalendarStore();
   const { data: calendars = [] } = useCalendars();
   const [calendarsExpanded, setCalendarsExpanded] = React.useState(true);
   const [createMenuOpen, setCreateMenuOpen] = React.useState(false);
@@ -34,14 +34,23 @@ const Sidebar: React.FC<SidebarProps> = ({ onCreateEvent, onCreateTask, onCreate
   };
 
   return (
-    <aside
-      className={`
-        no-print flex-shrink-0 border-r border-gc-gray-200 bg-white overflow-y-auto overflow-x-hidden
-        transition-all duration-300 ease-in-out
-        ${sidebarOpen ? 'w-64 opacity-100' : 'w-0 opacity-0'}
-      `}
-      style={{ minWidth: sidebarOpen ? '256px' : '0px' }}
-    >
+    <>
+      {/* Mobile backdrop */}
+      {sidebarOpen && (
+        <div 
+          className="md:hidden fixed inset-0 bg-black/30 z-[50]" 
+          onClick={toggleSidebar}
+        />
+      )}
+      <aside
+        className={`
+          no-print flex-shrink-0 border-r border-gc-gray-200 bg-white overflow-y-auto overflow-x-hidden
+          transition-all duration-300 ease-in-out
+          absolute md:relative z-[60] h-full
+          ${sidebarOpen ? 'w-64 opacity-100 translate-x-0' : 'w-0 opacity-0 -translate-x-full md:translate-x-0'}
+        `}
+        style={{ minWidth: sidebarOpen ? '256px' : '0px' }}
+      >
       <div className="w-64">
         {/* Create button */}
         <div className="p-4 pt-3 relative" ref={createMenuRef}>
@@ -177,6 +186,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onCreateEvent, onCreateTask, onCreate
         </div>
       </div>
     </aside>
+    </>
   );
 };
 

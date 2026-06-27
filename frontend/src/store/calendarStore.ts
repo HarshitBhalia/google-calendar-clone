@@ -55,7 +55,7 @@ export const useCalendarStore = create<CalendarStore>((set) => ({
   // State
   currentDate: new Date(),
   selectedView: 'timeGridWeek',
-  sidebarOpen: true,
+  sidebarOpen: typeof window !== 'undefined' ? window.innerWidth > 768 : true,
   token: null,
   user: null,
   calendarVisibility: {},

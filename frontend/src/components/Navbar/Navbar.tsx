@@ -132,22 +132,22 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Center section */}
-      <div className="flex items-center gap-2 ml-6">
+      <div className="flex items-center gap-1 md:gap-2 ml-2 md:ml-6 flex-1 min-w-0">
         <button
           onClick={goToToday}
-          className="px-4 py-1.5 border border-gc-gray-300 rounded text-sm font-medium text-gc-gray-700 hover:bg-gc-gray-50 transition-colors"
+          className="px-2 md:px-4 py-1.5 border border-gc-gray-300 rounded text-xs md:text-sm font-medium text-gc-gray-700 hover:bg-gc-gray-50 transition-colors"
         >
           Today
         </button>
 
-        <button onClick={navigateBack} className="btn-icon" aria-label="Previous">
+        <button onClick={navigateBack} className="btn-icon flex-shrink-0" aria-label="Previous">
           <ChevronLeft size={20} className="text-gc-gray-600" />
         </button>
-        <button onClick={navigateForward} className="btn-icon" aria-label="Next">
+        <button onClick={navigateForward} className="btn-icon flex-shrink-0" aria-label="Next">
           <ChevronRight size={20} className="text-gc-gray-600" />
         </button>
 
-        <h2 className="text-[22px] font-google-sans text-gc-gray-900 font-normal ml-2 whitespace-nowrap">
+        <h2 className="text-lg md:text-[22px] font-google-sans text-gc-gray-900 font-normal ml-1 md:ml-2 truncate">
           {getHeaderText()}
         </h2>
       </div>

@@ -132,7 +132,7 @@ const AppContent: React.FC = () => {
   return (
     <div className="h-screen w-screen flex flex-col overflow-hidden">
       <Navbar />
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden relative">
         <Sidebar 
           onCreateEvent={handleCreateEvent} 
           onCreateTask={handleCreateTask}

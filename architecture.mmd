@@ -1,0 +1,60 @@
+graph TB
+    subgraph Frontend ["React Frontend (Vite + TypeScript)"]
+        UI["UI Components<br/>Navbar | Sidebar | CalendarMain<br/>EventModal | EventPopover"]
+        FC["FullCalendar<br/>DayGrid | TimeGrid | Interaction"]
+        ZS["Zustand Store<br/>currentDate | selectedView<br/>auth token | calendarVisibility"]
+        TQ["TanStack Query Cache<br/>useEvents | useCalendars<br/>Optimistic Updates"]
+        AX["Axios HTTP Client<br/>JWT Interceptor"]
+    end
+
+    subgraph Backend ["Express Backend (TypeScript)"]
+        RT["REST API Routes<br/>/api/events | /api/auth<br/>/api/calendars"]
+        AM["Auth Middleware<br/>JWT Verify"]
+        EC["Events Controller"]
+        AC["Auth Controller"]
+        CC["Calendars Controller"]
+        ES["Events Service<br/>Timezone Conversion<br/>Overlap Detection<br/>RRULE Expansion"]
+        AS["Auth Service<br/>bcrypt | JWT"]
+        EH["Error Handler<br/>Global Middleware"]
+    end
+
+    subgraph Database ["Data Layer"]
+        PR["Prisma ORM<br/>Type-safe Queries"]
+        DB[("SQLite Database<br/>Users | Calendars | Events")]
+    end
+
+    subgraph External ["External Services"]
+        VR["Vercel<br/>Frontend Hosting"]
+        RN["Render<br/>Backend Hosting"]
+    end
+
+    UI --> FC
+    UI --> ZS
+    FC --> TQ
+    ZS --> TQ
+    TQ --> AX
+    AX -->|"HTTP Requests<br/>GET / POST / PUT / DELETE"| RT
+    RT --> AM
+    AM --> EC
+    AM --> AC
+    AM --> CC
+    EC --> ES
+    AC --> AS
+    CC --> PR
+    ES --> PR
+    AS --> PR
+    RT --> EH
+    PR -->|"SQL Queries"| DB
+
+    Frontend -.->|"Deploy"| VR
+    Backend -.->|"Deploy"| RN
+
+    classDef frontend fill:#E8F0FE,stroke:#1a73e8,stroke-width:2px,color:#202124
+    classDef backend fill:#FCE8E6,stroke:#d93025,stroke-width:2px,color:#202124
+    classDef database fill:#E6F4EA,stroke:#0f9d58,stroke-width:2px,color:#202124
+    classDef external fill:#FEF7E0,stroke:#f4b400,stroke-width:2px,color:#202124
+
+    class UI,FC,ZS,TQ,AX frontend
+    class RT,AM,EC,AC,CC,ES,AS,EH backend
+    class PR,DB database
+    class VR,RN external

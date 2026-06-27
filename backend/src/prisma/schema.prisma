@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  String                @id @default(cuid())
+  email               String                @unique
+  password            String
+  name                String
+  createdAt           DateTime              @default(now())
+  events              Event[]
+  calendars           Calendar[]
+  tasks               Task[]
+  appointmentSchedules AppointmentSchedule[]
+}
+
+model Calendar {
+  id        String   @id @default(cuid())
+  name      String
+  color     String   @default("#4285F4")
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  events    Event[]
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Event {
+  id             String   @id @default(cuid())
+  title          String
+  description    String?
+  startUtc       DateTime
+  endUtc         DateTime
+  isAllDay       Boolean  @default(false)
+  color          String?
+  location       String?
+  calendarId     String
+  calendar       Calendar @relation(fields: [calendarId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  recurrenceRule String?
+  recurrenceId   String?
+  isException    Boolean  @default(false)
+  version        Int      @default(1)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  deletedAt      DateTime?
+
+  @@index([userId])
+  @@index([calendarId])
+  @@index([startUtc, endUtc])
+  @@index([recurrenceId])
+}
+
+model Task {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  date        DateTime?
+  isCompleted Boolean   @default(false)
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+
+  @@index([userId])
+}
+
+model AppointmentSchedule {
+  id          String        @id @default(cuid())
+  title       String
+  duration    Int
+  startUtc    DateTime
+  endUtc      DateTime
+  userId      String
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  appointments Appointment[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([userId])
+}
+
+model Appointment {
+  id         String              @id @default(cuid())
+  scheduleId String
+  schedule   AppointmentSchedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+  name       String
+  email      String
+  startUtc   DateTime
+  endUtc     DateTime
+  createdAt  DateTime            @default(now())
+  updatedAt  DateTime            @updatedAt
+
+  @@index([scheduleId])
+}
